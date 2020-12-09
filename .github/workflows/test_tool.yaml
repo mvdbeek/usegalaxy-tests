@@ -18,6 +18,9 @@ jobs:
         repository: ${{ github.event.client_payload.github.payload.repository.full_name }}
         comment-id: ${{ github.event.client_payload.github.payload.comment.id }}
         reaction-type: hooray
+    - uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
     - name: Install galaxy-tool-util
       run: pip install 'galaxy-tool-util>=21.1.0.dev3'
     - name: Install planemo
