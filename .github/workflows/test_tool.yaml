@@ -1,7 +1,7 @@
 name: Run tool test against galaxy server
 on:
   repository_dispatch:
-    types: [run-tool-test]
+    types: [run-tool-test-command]
 jobs:
   setup:
     name: Run test
