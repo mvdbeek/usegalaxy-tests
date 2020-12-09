@@ -22,7 +22,7 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install galaxy-tool-util
-      run: pip install 'galaxy-tool-util>=21.1.0.dev3'
+      run: pip install 'galaxy-tool-util>=21.1.0.dev3' pysam
     - name: Install planemo
       run: git clone --recursive https://github.com/galaxyproject/planemo && pip install planemo/
     - name: Run tool test
