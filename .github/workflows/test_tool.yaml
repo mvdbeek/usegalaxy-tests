@@ -33,7 +33,6 @@ jobs:
       id: report
       run: echo ::set-output name=markdown::$(cat report.md)
     - name: Create comment
-      if: ${{ github.event.client_payload.slash_command.command == 'run-tool-test-command' }}
       uses: peter-evans/create-or-update-comment@v1
       with:
         token: ${{ secrets.PAT }}
