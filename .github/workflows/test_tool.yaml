@@ -5,7 +5,7 @@ on:
 jobs:
   setup:
     name: Run test
-    if: github.repository_owner == 'galaxyproject'
+    if: github.repository_owner == 'mvdbeek'
     runs-on: ubuntu-latest
     strategy:
       matrix:
