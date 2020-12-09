@@ -26,7 +26,7 @@ jobs:
     - name: Install planemo
       run: git clone --recursive https://github.com/galaxyproject/planemo && pip install planemo/
     - name: Run tool test
-      run: galaxy-tool-test -u http://usegalaxy.org -k "${{ secrets.GALAXY_API_KEY }}" -t "${{github.event.client_payload.slash_command.args.named.tool_id}}" -j test_result.json
+      run: galaxy-tool-test -u https://usegalaxy.org -k "${{ secrets.GALAXY_API_KEY }}" -t "${{github.event.client_payload.slash_command.args.named.tool_id}}" -j test_result.json
     - name: Create test markdown report
       id: report
       run: echo ::set-output name=markdown::$(planemo test_reports test_result.json --test_output_markdown /dev/stdout)
