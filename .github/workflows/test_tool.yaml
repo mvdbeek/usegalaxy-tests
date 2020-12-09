@@ -31,7 +31,12 @@ jobs:
       run: planemo test_reports test_result.json --test_output_markdown report.md
     - name: Read report
       id: report
-      run: echo ::set-output name=markdown::$(cat report.md)
+      run: |
+           body=$(cat report.md)
+           body="${body//'%'/'%25'}"
+           body="${body//$'\n'/'%0A'}"
+           body="${body//$'\r'/'%0D'}"
+           echo "::set-output name=markdown::$report"
     - name: Create comment
       uses: peter-evans/create-or-update-comment@v1
       with:
