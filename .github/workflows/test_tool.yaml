@@ -26,7 +26,7 @@ jobs:
     - name: Install planemo
       run: git clone --recursive https://github.com/galaxyproject/planemo && pip install planemo/
     - name: Run tool test
-      run: galaxy-tool-test -u https://usegalaxy.org -k "${{ secrets.GALAXY_API_KEY }}" -t "${{github.event.client_payload.slash_command.args.named.tool_id}}" -j test_result.json
+      run: galaxy-tool-test -u https://usegalaxy.org -k "${{ secrets.GALAXY_API_KEY }}" -t "${{github.event.client_payload.slash_command.args.named.tool_id}}" -j test_result.json --parallel-tests 10
     - name: Create test markdown report
       run: planemo test_reports test_result.json --test_output_markdown report.md
     - name: Read report
@@ -36,7 +36,7 @@ jobs:
            body="${body//'%'/'%25'}"
            body="${body//$'\n'/'%0A'}"
            body="${body//$'\r'/'%0D'}"
-           echo "::set-output name=markdown::$report"
+           echo "::set-output name=markdown::$body"
     - name: Create comment
       uses: peter-evans/create-or-update-comment@v1
       with:
