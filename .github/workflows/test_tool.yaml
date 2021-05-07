@@ -32,8 +32,10 @@ jobs:
       if: ${{ github.event.client_payload.slash_command.args.named.server == 'https://test.galaxyproject.org' }}
       run: galaxy-tool-test -u https://test.galaxyproject.org -k "${{ secrets.TEST_API_KEY }}" -t "${{github.event.client_payload.slash_command.args.named.tool_id}}" -j test_result.json --parallel-tests 10 --download-attempts 2 --download-sleep 2
     - name: Create test markdown report
+      if: always()
       run: planemo test_reports test_result.json --test_output_markdown report.md
     - name: Read report
+      if: always()
       id: report
       run: |
            body=$(cat report.md)
@@ -42,6 +44,7 @@ jobs:
            body="${body//$'\r'/'%0D'}"
            echo "::set-output name=markdown::$body"
     - name: Create comment
+      if: always()
       uses: peter-evans/create-or-update-comment@v1
       with:
         token: ${{ secrets.PAT }}
