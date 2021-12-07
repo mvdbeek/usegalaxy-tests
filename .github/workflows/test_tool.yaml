@@ -27,10 +27,10 @@ jobs:
       run: git clone --recursive https://github.com/galaxyproject/planemo && pip install planemo/
     - name: Run tool test
       if: ${{  github.event.client_payload.slash_command.args.named.server != 'https://test.galaxyproject.org' }}
-      run: galaxy-tool-test -u https://usegalaxy.org -k "${{ secrets.GALAXY_API_KEY }}" -t "${{github.event.client_payload.slash_command.args.named.tool_id}}" -j test_result.json --parallel-tests 10 --download-attempts 2 --download-sleep 2
+      run: galaxy-tool-test -u https://usegalaxy.org -k "${{ secrets.GALAXY_API_KEY }}" -t "${{github.event.client_payload.slash_command.args.named.tool_id}}" -j test_result.json --parallel-tests 10 --download-attempts 32 --download-sleep 2
     - name: Run tool test
       if: ${{ github.event.client_payload.slash_command.args.named.server == 'https://test.galaxyproject.org' }}
-      run: galaxy-tool-test -u https://test.galaxyproject.org -k "${{ secrets.TEST_API_KEY }}" -t "${{github.event.client_payload.slash_command.args.named.tool_id}}" -j test_result.json --parallel-tests 10 --download-attempts 2 --download-sleep 2
+      run: galaxy-tool-test -u https://test.galaxyproject.org -k "${{ secrets.TEST_API_KEY }}" -t "${{github.event.client_payload.slash_command.args.named.tool_id}}" -j test_result.json --parallel-tests 10 --download-attempts 32 --download-sleep 2
     - name: Create test markdown report
       if: always()
       run: planemo test_reports test_result.json --test_output_markdown report.md
